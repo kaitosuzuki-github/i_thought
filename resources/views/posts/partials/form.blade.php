@@ -28,7 +28,9 @@
             <x-input-error :messages="$errors->get('emotion_num')" />
         </div>
         <x-primary-button>{{ __('Post') }}</x-primary-button>
-        <button type="button" onClick="history.back()" class="text-white">{{ __('back') }}</button>
+        <x-secondary-button onclick="history.back()">
+            {{ __('Cancel') }}
+        </x-secondary-button>
         </form>
     </div>
 </x-app-layout>
