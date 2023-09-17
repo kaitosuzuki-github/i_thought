@@ -73,7 +73,7 @@
                     </div>
                 </div>
             @endforeach
-            {{ $posts->links() }}
+            {{ $posts->appends(request()->query())->links() }}
         </div>
     </div>
 </x-app-layout>
