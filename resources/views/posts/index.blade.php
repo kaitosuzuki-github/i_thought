@@ -1,6 +1,26 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-        <div class="mt-6">
+        <div class="mt-6 space-y-4">
+            <div>
+                <form action="{{ route('posts.index') }}" method="GET">
+                    @csrf
+                    <div class="w-full">
+                        <div class="flex flex-col rounded-lg w-full gap-2 md:flex-row">
+                            <input type="text" name="keyword" placeholder="{{ __('Search') }}"
+                                class="w-full rounded-lg border-none" value="{{ old('keyword', $keyword) }}" />
+                            <div class="flex items-center">
+                                <input type="date" name="date_from" value="{{ old('date_from', $date_from) }}"
+                                    class="rounded-lg border-none">
+                                <span class="mx-2">~</span>
+                                <input type="date" name="date_until" value="{{ old('date_until', $date_until) }}"
+                                    class="rounded-lg border-none">
+                            </div>
+                            <button type="submit"
+                                class="bg-gray-700 text-white px-4 text-md font-semibold py-2 rounded-lg w-32">{{ __('Go') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             @foreach ($posts as $post)
                 <div class="mb-4 p-6 flex-1 bg-white shadow-sm rounded-lg">
                     <div class="flex justify-between items-center">
