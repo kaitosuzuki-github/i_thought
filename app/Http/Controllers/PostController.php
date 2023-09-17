@@ -56,17 +56,26 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Post $post): View
     {
-        //
+        $this->authorize('update', $post);
+
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post): RedirectResponse
     {
-        //
+        $this->authorize('update', $post);
+
+        $post->event = $request->event;
+        $post->emotion = $request->emotion;
+        $post->emotion_num = $request->emotion_num;
+        $post->save();
+
+        return redirect(route('posts.index'));
     }
 
     /**
