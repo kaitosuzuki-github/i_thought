@@ -6,7 +6,8 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <span class="text-gray-800">{{ $post->user->name }}</span>
-                            <small class="ml-2 text-sm text-gray-600">{{ $post->created_at->format('j M Y') }}</small>
+                            <small
+                                class="ml-2 text-sm text-gray-600">{{ $post->created_at->isoFormat('YYYY/MM/DD(ddd)') }}</small>
                             @unless ($post->created_at->eq($post->updated_at))
                                 <small class="text-sm text-gray-600">{{ __('edited') }}</small>
                             @endunless
@@ -40,13 +41,13 @@
                     </div>
                     <div class="pl-4 divide-y">
                         <p class="mt-4 text-md text-gray-900">
-                            <span class="font-semibold">{{ __('event: ') }}</span>{{ $post->event }}
+                            <span class="font-semibold">{{ __('Event') }}: </span>{{ $post->event }}
                         </p>
                         <p class="mt-4 pt-4 text-md text-gray-900">
-                            <span class="font-semibold">{{ __('emotion: ') }}</span>{{ $post->emotion }}
+                            <span class="font-semibold">{{ __('Emotion') }}: </span>{{ $post->emotion }}
                         </p>
                         <p class="mt-4 pt-4 text-md text-gray-900">
-                            <span class="font-semibold">{{ __('emotion_num: ') }}</span>{{ $post->emotion_num }}
+                            <span class="font-semibold">{{ __('Emotion Num') }}: </span>{{ $post->emotion_num }}
                         </p>
 
                     </div>
