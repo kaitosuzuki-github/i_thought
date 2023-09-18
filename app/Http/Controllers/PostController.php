@@ -169,17 +169,17 @@ class PostController extends Controller
         $date_until = $request->date_until;
 
         if (!empty($date_from) && !empty($date_until)) {
-            $posts_query = Auth::user()->post()->with('image')->latest()
+            $posts_query = Auth::user()->posts()->with('image')->latest()
                     ->whereDate('created_at', '>=', $date_from)
                     ->whereDate('created_at', '<=', $date_until);
         } elseif(!empty($date_from) && empty($date_until)) {
-            $posts_query = Auth::user()->post()->with('image')->latest()
+            $posts_query = Auth::user()->posts()->with('image')->latest()
                     ->where('created_at', '>=', $date_from);
         } elseif(empty($date_from) && !empty($date_until)) {
-            $posts_query = Auth::user()->post()->with('image')->latest()
+            $posts_query = Auth::user()->posts()->with('image')->latest()
                     ->where('created_at', '<=', $date_until);
         } else {
-            $posts_query = Auth::user()->post()->with('image')->latest();
+            $posts_query = Auth::user()->posts()->with('image')->latest();
         }
 
         if(!empty($keyword)) {
