@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Image;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -21,17 +24,17 @@ class PostController extends Controller
         $date_until = $request->date_until;
 
         if (!empty($date_from) && !empty($date_until)) {
-            $posts_query = Post::with('user')->latest()
+            $posts_query = Post::with('user', 'image')->latest()
                     ->whereDate('created_at', '>=', $date_from)
                     ->whereDate('created_at', '<=', $date_until);
         } elseif(!empty($date_from) && empty($date_until)) {
-            $posts_query = Post::with('user')->latest()
+            $posts_query = Post::with('user', 'image')->latest()
                     ->where('created_at', '>=', $date_from);
         } elseif(empty($date_from) && !empty($date_until)) {
-            $posts_query = Post::with('user')->latest()
+            $posts_query = Post::with('user', 'image')->latest()
                     ->where('created_at', '<=', $date_until);
         } else {
-            $posts_query = Post::with('user')->latest();
+            $posts_query = Post::with('user', 'image')->latest();
         }
 
         if(!empty($keyword)) {
@@ -64,12 +67,27 @@ class PostController extends Controller
      */
     public function store(PostRequest $request): RedirectResponse
     {
-        $post = new Post();
-        $post->user_id = Auth::id();
-        $post->event = $request->event;
-        $post->emotion = $request->emotion;
-        $post->emotion_num = $request->emotion_num;
-        $post->save();
+        DB::beginTransaction();
+        try{
+            $post = new Post();
+            $post->user_id = Auth::id();
+            $post->event = $request->event;
+            $post->emotion = $request->emotion;
+            $post->emotion_num = $request->emotion_num;
+            $post->save();
+
+            if (!empty($request->file('image'))) {
+                $image = new Image();
+                $image->name = $request->file('image')->getClientOriginalName();
+                $path = Storage::disk('s3')->putFile('/images', $request->file('image'));
+                $image->path = Storage::disk('s3')->url($path);
+                $post->image()->save($image);
+            }
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
 
         return redirect(route('posts.index'));
     }
@@ -99,10 +117,35 @@ class PostController extends Controller
     {
         $this->authorize('update', $post);
 
-        $post->event = $request->event;
-        $post->emotion = $request->emotion;
-        $post->emotion_num = $request->emotion_num;
-        $post->save();
+        DB::beginTransaction();
+        try{
+            $post->user_id = Auth::id();
+            $post->event = $request->event;
+            $post->emotion = $request->emotion;
+            $post->emotion_num = $request->emotion_num;
+            $post->save();
+
+            if (!empty($request->file('image'))) {
+                $image_name = $request->file('image')->getClientOriginalName();
+                $path = Storage::disk('s3')->putFile('/images', $request->file('image'));
+                $image_path =Storage::disk('s3')->url($path);
+
+                if (!empty($post->image)){
+                    $post->image->name = $image_name;
+                    $post->image->path = $image_path;
+                    $post->image->save();
+                } else {
+                    $image = new Image();
+                    $image->name = $image_name;
+                    $image->path = $image_path;
+                    $post->image()->save($image);
+                }
+            }
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+        }
 
         return redirect(route('posts.index'));
     }

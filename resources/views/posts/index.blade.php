@@ -69,7 +69,11 @@
                         <p class="mt-4 pt-4 text-md text-gray-900">
                             <span class="font-semibold">{{ __('Emotion Num') }}: </span>{{ $post->emotion_num }}
                         </p>
-
+                        @if (!empty($post->image))
+                            <div class="mt-4 pt-4">
+                                <img src="{{ $post->image->path }}" class="h-64 w-auto">
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endforeach
