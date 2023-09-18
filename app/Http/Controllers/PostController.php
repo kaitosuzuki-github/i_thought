@@ -89,7 +89,7 @@ class PostController extends Controller
             DB::rollBack();
         }
 
-        return redirect(route('posts.index'));
+        return redirect(route('posts.my_index'));
     }
 
     /**
@@ -147,7 +147,7 @@ class PostController extends Controller
             DB::rollBack();
         }
 
-        return redirect(route('posts.index'));
+        return redirect(route('posts.my_index'));
     }
 
     /**
@@ -159,6 +159,41 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect(route('posts.index'));
+        return redirect(route('posts.my_index'));
+    }
+
+    public function myIndex(Request $request): View
+    {
+        $keyword = $request->keyword;
+        $date_from = $request->date_from;
+        $date_until = $request->date_until;
+
+        if (!empty($date_from) && !empty($date_until)) {
+            $posts_query = Auth::user()->post()->with('image')->latest()
+                    ->whereDate('created_at', '>=', $date_from)
+                    ->whereDate('created_at', '<=', $date_until);
+        } elseif(!empty($date_from) && empty($date_until)) {
+            $posts_query = Auth::user()->post()->with('image')->latest()
+                    ->where('created_at', '>=', $date_from);
+        } elseif(empty($date_from) && !empty($date_until)) {
+            $posts_query = Auth::user()->post()->with('image')->latest()
+                    ->where('created_at', '<=', $date_until);
+        } else {
+            $posts_query = Auth::user()->post()->with('image')->latest();
+        }
+
+        if(!empty($keyword)) {
+            $posts = $posts_query
+                    ->where(function($query) use($keyword){
+                        $query->where('event', 'like', "%{$keyword}%")
+                            ->orWhere("emotion", 'like', "%{$keyword}%")
+                            ->orWhere("emotion_num", '=', $keyword);
+                    })
+                    ->paginate(10);
+        } else {
+            $posts = $posts_query->paginate(10);
+        }
+
+        return view('posts.my_index', ['posts' => $posts, 'keyword' => $keyword, 'date_from' => $date_from, 'date_until' => $date_until]);
     }
 }
