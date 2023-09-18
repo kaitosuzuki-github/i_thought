@@ -21,10 +21,14 @@ class PostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $num_byte = 15;
+        $max_size = 1024 * $num_byte;
+
         return [
             'event' => 'required|string|max:255',
             'emotion' => 'required|string|max:255',
             'emotion_num' => 'required|integer|min:0|max:100',
+            'image' => 'file|image|max:' . $max_size
         ];
     }
 }
