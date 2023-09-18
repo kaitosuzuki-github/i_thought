@@ -5,7 +5,7 @@
                 'keyword' => $keyword,
                 'date_from' => $date_from,
                 'date_until' => $date_until,
-                'target' => 'index',
+                'target' => 'my_index',
             ])
             @include('posts.partials.list', ['posts' => $posts])
         </div>
