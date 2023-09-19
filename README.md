@@ -1,66 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# i thought
+i_thoughtは感情を日記として投稿するアプリケーションです。
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+出来事、出来事に対する感情、感情の数値、画像を投稿することができます。
 
-## About Laravel
+また、他のユーザーの投稿も見ることができます。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 技術
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### フロントエンド
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   Laravel Breeze
+-   tailwindcss
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### バックエンド
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   PHP
+-   Laravel
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+### DB
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+-   MySQL
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### インフラ
+-   AWS s3
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 機能
 
-## Code of Conduct
+### 認証機能
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Laravel Breeze を使用し、認証機能を実装しました。
 
-## Security Vulnerabilities
+#### 登録
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/fbc38126-a49f-4540-a75d-d36b8014146b
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+#### ログイン
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/6c752fd4-b477-4938-9afe-1858c6af772f
+
+
+#### ユーザー編集
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/7a738c03-193c-443d-aa17-7497553d2b2d
+
+
+#### ユーザー削除
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/f4ae7269-17d0-48c4-8d15-582c723ff1ae
+
+
+### 投稿機能
+出来事、感情、感情の数値、画像(画像は入れなくても投稿できます。)を入れて投稿できます。
+#### 投稿一覧
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/56d01e43-2899-4e6e-953f-7514fc89f654
+
+
+#### 新規投稿
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/c818688e-a703-4cce-9404-95dd37547d0b
+
+
+#### 投稿編集
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/35a786d9-22cf-40f4-a00d-f504adf83b0d
+
+
+#### 投稿削除
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/6ce91c76-e510-4031-8754-fead0a1849d1
+
+
+### 検索機能
+出来事、感情でのキーワード検索、日付での検索を行うことができます。
+#### キーワード検索
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/ae16bce1-01b9-4aaa-8cdc-74d935c33ded
+
+
+#### 日付検索
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/708f24d4-0c02-4137-9b19-6e4e2185d45f
+
+
+#### キーワード検索と日付検索をあわせた検索
+
+
+
+https://github.com/kaitosuzuki-github/i_thought/assets/115347779/a0272197-9400-465c-8484-65b9bc3491de
+
+
