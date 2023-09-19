@@ -114,3 +114,5 @@ https://github.com/kaitosuzuki-github/i_thought/assets/115347779/708f24d4-0c02-4
 https://github.com/kaitosuzuki-github/i_thought/assets/115347779/a0272197-9400-465c-8484-65b9bc3491de
 
 
+## ER図
+![i_thought_diagram](https://github.com/kaitosuzuki-github/i_thought/assets/115347779/536ce487-ee5d-497b-b81b-e7929e9a37e2)
