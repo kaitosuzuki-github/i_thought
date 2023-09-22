@@ -49,7 +49,7 @@
                 </p>
                 @if (!empty($post->image))
                     <div class="mt-4 pt-4">
-                        <img src="{{ $post->image->path }}" class="h-64 w-auto">
+                        <img src="{{ Storage::disk('s3')->url($post->image->path) }}" class="h-64 w-auto">
                     </div>
                 @endif
             </div>
