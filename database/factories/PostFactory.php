@@ -20,7 +20,7 @@ class PostFactory extends Factory
             'event' => fake()->realText(20),
             'emotion' => fake()->realText(10),
             'emotion_num' => fake()->numberBetween(0, 100),
-            'created_at' => fake()->dateTimeBetween('-2 month', '+2 month'),
+            'created_at' => fake()->dateTimeBetween('-2 month', 'now'),
         ];
     }
 }

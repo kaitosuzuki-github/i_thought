@@ -79,8 +79,7 @@ class PostController extends Controller
             if (!empty($request->file('image'))) {
                 $image = new Image();
                 $image->name = $request->file('image')->getClientOriginalName();
-                $path = Storage::disk('s3')->putFile('/images', $request->file('image'));
-                $image->path = Storage::disk('s3')->url($path);
+                $image->path = Storage::disk('s3')->putFile('/images', $request->file('image'));
                 $post->image()->save($image);
             }
 
@@ -127,10 +126,11 @@ class PostController extends Controller
 
             if (!empty($request->file('image'))) {
                 $image_name = $request->file('image')->getClientOriginalName();
-                $path = Storage::disk('s3')->putFile('/images', $request->file('image'));
-                $image_path =Storage::disk('s3')->url($path);
+                $image_path = Storage::disk('s3')->putFile('/images', $request->file('image'));
 
                 if (!empty($post->image)){
+                    Storage::disk('s3')->delete($post->image->path);
+
                     $post->image->name = $image_name;
                     $post->image->path = $image_path;
                     $post->image->save();
@@ -157,6 +157,7 @@ class PostController extends Controller
     {
         $this->authorize('delete', $post);
 
+        Storage::disk('s3')->delete($post->image->path);
         $post->delete();
 
         return redirect(route('posts.my_index'));
