@@ -249,7 +249,18 @@ return [
         'year' => '年',
         'event' => '出来事',
         'emotion' => '感情',
-        'emotion_num' => '感情の数値'
+        'emotion_num' => '感情の数値',
+        'keyword' => 'キーワード',
+        'date_from' => '開始日',
+        'date_until' => '終了日',
     ],
 
+    'values' => [
+        'date_from' => [
+            'today' => '今日'
+        ],
+        'date_until' => [
+            'today' => '今日'
+        ]
+    ]
 ];
