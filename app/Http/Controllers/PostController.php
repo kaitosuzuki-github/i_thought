@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Image;
 use App\Http\Requests\PostRequest;
+use App\Http\Requests\SearchRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(SearchRequest $request): View
     {
         $keyword = $request->keyword;
         $date_from = $request->date_from;
@@ -163,7 +164,7 @@ class PostController extends Controller
         return redirect(route('posts.my_index'));
     }
 
-    public function myIndex(Request $request): View
+    public function myIndex(SearchRequest $request): View
     {
         $keyword = $request->keyword;
         $date_from = $request->date_from;

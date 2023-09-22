@@ -5,7 +5,7 @@
             <form action="{{ route('posts.my_index') }}" method="GET">
     @endif
     @csrf
-    <div class="w-full">
+    <div class="w-full space-y-2">
         <div class="flex flex-col rounded-lg w-full gap-2 md:flex-row">
             <input type="text" name="keyword" placeholder="{{ __('Search') }}" class="w-full rounded-lg border-none"
                 value="{{ old('keyword', $keyword) }}" />
@@ -18,6 +18,10 @@
             </div>
             <button type="submit"
                 class="bg-gray-700 text-white px-4 text-md font-semibold py-2 rounded-lg w-32">{{ __('Go') }}</button>
+        </div>
+        <div class="space-y-1">
+            <x-input-error :messages="$errors->get('date_from')" />
+            <x-input-error :messages="$errors->get('date_until')" />
         </div>
     </div>
     </form>
