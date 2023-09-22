@@ -26,26 +26,26 @@ class PostController extends Controller
 
         if (!empty($date_from) && !empty($date_until)) {
             $posts_query = Post::with('user', 'image')->latest()
-                    ->whereDate('created_at', '>=', $date_from)
-                    ->whereDate('created_at', '<=', $date_until);
-        } elseif(!empty($date_from) && empty($date_until)) {
+                ->whereDate('created_at', '>=', $date_from)
+                ->whereDate('created_at', '<=', $date_until);
+        } elseif (!empty($date_from) && empty($date_until)) {
             $posts_query = Post::with('user', 'image')->latest()
-                    ->where('created_at', '>=', $date_from);
-        } elseif(empty($date_from) && !empty($date_until)) {
+                ->where('created_at', '>=', $date_from);
+        } elseif (empty($date_from) && !empty($date_until)) {
             $posts_query = Post::with('user', 'image')->latest()
-                    ->where('created_at', '<=', $date_until);
+                ->where('created_at', '<=', $date_until);
         } else {
             $posts_query = Post::with('user', 'image')->latest();
         }
 
-        if(!empty($keyword)) {
+        if (!empty($keyword)) {
             $posts = $posts_query
-                    ->where(function($query) use($keyword){
-                        $query->where('event', 'like', "%{$keyword}%")
-                            ->orWhere("emotion", 'like', "%{$keyword}%")
-                            ->orWhere("emotion_num", '=', $keyword);
-                    })
-                    ->paginate(10);
+                ->where(function ($query) use ($keyword) {
+                    $query->where('event', 'like', "%{$keyword}%")
+                        ->orWhere("emotion", 'like', "%{$keyword}%")
+                        ->orWhere("emotion_num", '=', $keyword);
+                })
+                ->paginate(10);
         } else {
             $posts = $posts_query->paginate(10);
         }
@@ -69,7 +69,7 @@ class PostController extends Controller
     public function store(PostRequest $request): RedirectResponse
     {
         DB::beginTransaction();
-        try{
+        try {
             $post = new Post();
             $post->user_id = Auth::id();
             $post->event = $request->event;
@@ -118,7 +118,7 @@ class PostController extends Controller
         $this->authorize('update', $post);
 
         DB::beginTransaction();
-        try{
+        try {
             $post->user_id = Auth::id();
             $post->event = $request->event;
             $post->emotion = $request->emotion;
@@ -129,7 +129,7 @@ class PostController extends Controller
                 $image_name = $request->file('image')->getClientOriginalName();
                 $image_path = Storage::disk('s3')->putFile('/images', $request->file('image'));
 
-                if (!empty($post->image)){
+                if (!empty($post->image)) {
                     Storage::disk('s3')->delete($post->image->path);
 
                     $post->image->name = $image_name;
@@ -172,26 +172,26 @@ class PostController extends Controller
 
         if (!empty($date_from) && !empty($date_until)) {
             $posts_query = Auth::user()->posts()->with('image')->latest()
-                    ->whereDate('created_at', '>=', $date_from)
-                    ->whereDate('created_at', '<=', $date_until);
-        } elseif(!empty($date_from) && empty($date_until)) {
+                ->whereDate('created_at', '>=', $date_from)
+                ->whereDate('created_at', '<=', $date_until);
+        } elseif (!empty($date_from) && empty($date_until)) {
             $posts_query = Auth::user()->posts()->with('image')->latest()
-                    ->where('created_at', '>=', $date_from);
-        } elseif(empty($date_from) && !empty($date_until)) {
+                ->where('created_at', '>=', $date_from);
+        } elseif (empty($date_from) && !empty($date_until)) {
             $posts_query = Auth::user()->posts()->with('image')->latest()
-                    ->where('created_at', '<=', $date_until);
+                ->where('created_at', '<=', $date_until);
         } else {
             $posts_query = Auth::user()->posts()->with('image')->latest();
         }
 
-        if(!empty($keyword)) {
+        if (!empty($keyword)) {
             $posts = $posts_query
-                    ->where(function($query) use($keyword){
-                        $query->where('event', 'like', "%{$keyword}%")
-                            ->orWhere("emotion", 'like', "%{$keyword}%")
-                            ->orWhere("emotion_num", '=', $keyword);
-                    })
-                    ->paginate(10);
+                ->where(function ($query) use ($keyword) {
+                    $query->where('event', 'like', "%{$keyword}%")
+                        ->orWhere("emotion", 'like', "%{$keyword}%")
+                        ->orWhere("emotion_num", '=', $keyword);
+                })
+                ->paginate(10);
         } else {
             $posts = $posts_query->paginate(10);
         }
